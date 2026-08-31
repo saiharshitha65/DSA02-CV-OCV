@@ -1,0 +1,25 @@
+import cv2
+import numpy as np
+
+img = cv2.imread("Picture6.jpg")
+h,w = img.shape[:2]
+
+p1 = np.float32([[0,0],[w,0],[w,h],[0,h]])
+p2 = np.float32([[50,50],[w-50,30],[w-20,h-30],[30,h-20]])
+
+A = []
+
+for (x,y),(u,v) in zip(p1,p2):
+    A += [[-x,-y,-1,0,0,0,u*x,u*y,u],
+          [0,0,0,-x,-y,-1,v*x,v*y,v]]
+
+_,_,V = np.linalg.svd(A)
+H = V[-1].reshape(3,3)
+H /= H[2,2]
+
+result = cv2.warpPerspective(img,H,(w,h))
+
+cv2.imshow("Original",img)
+cv2.imshow("DLT",result)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
