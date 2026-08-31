@@ -1,0 +1,11 @@
+import cv2
+import numpy as np
+
+img = cv2.imread("Picture6.jpg",0)
+k = np.array([[-1,-1,-1],[-1,8,-1],[-1,-1,-1]])
+
+result = cv2.filter2D(img,-1,k)
+
+cv2.imshow("Boundary",result)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
