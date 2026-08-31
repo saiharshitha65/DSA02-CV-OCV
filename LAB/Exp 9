@@ -1,0 +1,15 @@
+import cv2
+
+img = cv2.imread("Picture6.jpg")
+h, w = img.shape[:2]
+
+M1 = cv2.getRotationMatrix2D((w//2,h//2), 45, 1)
+M2 = cv2.getRotationMatrix2D((w//2,h//2), -45, 1)
+
+r1 = cv2.warpAffine(img, M1, (w,h))
+r2 = cv2.warpAffine(img, M2, (w,h))
+
+cv2.imshow("Clockwise", r1)
+cv2.imshow("Counter Clockwise", r2)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
