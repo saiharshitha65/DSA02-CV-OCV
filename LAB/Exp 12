@@ -1,0 +1,16 @@
+import cv2
+import numpy as np
+
+img = cv2.imread("Picture6.jpg")
+h,w = img.shape[:2]
+
+p1 = np.float32([[0,0],[w,0],[w,h],[0,h]])
+p2 = np.float32([[50,50],[w-50,30],[w-20,h-30],[30,h-20]])
+
+M = cv2.getPerspectiveTransform(p1,p2)
+result = cv2.warpPerspective(img,M,(w,h))
+
+cv2.imshow("Original",img)
+cv2.imshow("Perspective",result)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
